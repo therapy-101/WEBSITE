@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IKIBLOOM | Aryan Khare | Psychotherapy & Counselling Lucknow</title>
+  <meta name="description" content="Evidence-based psychotherapy, cognitive behavioral therapy, and mental health counselling in Lucknow by Aryan Khare. Expert behavioral analysis and clinical psychology interventions.">
+  <meta name="keywords" content="Psychotherapist Lucknow, Behavioral Analyst, CBT Therapy, Clinical Psychology, Mental Health Specialist, Counselling Aryan Khare, Stress Management, Anxiety Relief">
+  <style>
+    :root {
+      --bg-color: #FFFDD0;
+      --text-main: #5C4033;
+      --teal-accent: #2C5E58;
+      --purple-accent: #7A698D;
+      --card-bg: #FFFFFF;
+      --border-color: rgba(92, 64, 51, 0.2);
+      --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+
+    /* Enhanced Scroll Animations */
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(40px) scale(0.98);
+      transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .fade-in-section.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 5%; background: rgba(255, 253, 208, 0.95);
+      position: sticky; top: 0; z-index: 90; backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+    .brand-container { display: flex; align-items: center; gap: 12px; }
+    .logo-img { height: 45px; width: auto; object-fit: contain; }
+    .brand-text { display: flex; flex-direction: column; }
+    .website-name { font-size: 1.4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--teal-accent); line-height: 1; }
+    .tagline { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-main); font-weight: 600; margin-top: 3px; }
+
+    .nav-links { display: flex; list-style: none; gap: 1.8rem; align-items: center; }
+    .nav-links a, .login-btn { 
+      color: var(--text-main); text-decoration: none; 
+      font-weight: 600; font-size: 0.92rem; cursor: pointer; transition: var(--transition-smooth);
+    }
+    .nav-links a:hover, .login-btn:hover { color: var(--teal-accent); }
+    .login-btn {
+      padding: 0.45rem 1.2rem; border: 1.5px solid var(--teal-accent);
+      border-radius: 6px; color: var(--teal-accent); text-decoration: none; display: inline-block;
+    }
+    .login-btn:hover { background: var(--teal-accent); color: var(--bg-color); }
+
+    .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; z-index: 101; }
+    .menu-toggle span { width: 25px; height: 3px; background: var(--text-main); border-radius: 2px; }
+
+    /* Authentication Drawers & Overlay */
+    .auth-panel {
+      position: fixed; top: 0; right: -100%;
+      width: 380px; max-width: 90%; height: 100%;
+      background: #FFFFFF; color: #333;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+      z-index: 1000; padding: 2.5rem 2rem;
+      display: flex; flex-direction: column; transition: var(--transition-smooth);
+      overflow-y: auto;
+    }
+    .auth-panel.active { right: 0; }
+    .close-panel { align-self: flex-end; font-size: 1.8rem; cursor: pointer; color: var(--text-main); line-height: 1; }
+    .auth-panel h2 { color: var(--teal-accent); margin-bottom: 0.5rem; }
+    .auth-panel p.subtitle { font-size: 0.85rem; color: #666; margin-bottom: 1.5rem; }
+    .auth-panel input, .auth-panel select { border: 1px solid #ccc; background: #f9f9f9; padding: 0.8rem; width: 100%; margin-bottom: 1rem; border-radius: 4px; }
+
+    #panelOverlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4); z-index: 999; opacity: 0; visibility: hidden; transition: var(--transition-smooth);
+    }
+    #panelOverlay.active { opacity: 1; visibility: visible; }
+
+    section { padding: 4.5rem 10%; border-bottom: 1px solid var(--border-color); }
+    h2 { font-size: 2.1rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--teal-accent); }
+
+    /* Full-Width Banner Hero Section Styling */
+    .hero-section {
+      padding: 0; position: relative; min-height: 80vh;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .hero-container {
+      width: 100%; height: 100%; min-height: 80vh; position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    
+    .hero-content {
+      position: relative; z-index: 2; width: 85%; max-width: 900px; padding: 3.5rem; margin: 3rem 0;
+      background: rgba(255, 253, 208, 0.45); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-radius: 16px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.4); text-align: center;
+    }
+    .hero-content h1 { font-size: 3rem; line-height: 1.2; color: var(--teal-accent); margin-bottom: 0.5rem; font-weight: 800; text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.2); }
+    .hero-content h2 { font-size: 2rem; color: var(--text-main); margin-bottom: 0.4rem; text-transform: none; letter-spacing: normal; text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8); }
+    .hero-content h3 { font-size: 1.25rem; color: var(--purple-accent); margin-bottom: 1.5rem; font-weight: 700; text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8); }
+    .hero-content blockquote {
+      font-size: 1.05rem; line-height: 1.6; font-style: italic; color: var(--text-main);
+      border-left: none; border-top: 3px solid var(--teal-accent); padding-top: 1.2rem;
+      margin: 0 auto; max-width: 750px; font-weight: 600; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+    }
+
+    /* Profile & Slider Grid */
+    .profile-section-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: start; }
+    .profile-info h3 { font-size: 1.8rem; color: var(--teal-accent); margin-bottom: 0.5rem; }
+    .profile-info .role-badge { display: inline-block; background: var(--purple-accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem; }
+    .profile-info p { margin-bottom: 1rem; }
+
+    /* Profile Portal Auth Box */
+    .profile-auth-box {
+      background: #FFFFFF; border: 1.5px solid var(--border-color); border-radius: 12px;
+      padding: 1.5rem; margin-top: 1.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    }
+    .profile-auth-box h4 { font-size: 1.1rem; color: var(--teal-accent); margin-bottom: 0.4rem; }
+    .profile-auth-box p { font-size: 0.88rem; color: #555; margin-bottom: 1rem; }
+    .profile-auth-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-auth {
+      flex: 1; min-width: 130px; padding: 0.75rem 1rem; border-radius: 6px;
+      font-weight: 700; font-size: 0.88rem; text-align: center; cursor: pointer;
+      transition: var(--transition-smooth); border: none; text-transform: uppercase;
+      letter-spacing: 0.5px; text-decoration: none; display: inline-block;
+    }
+    .btn-signup { background: var(--teal-accent); color: var(--bg-color); }
+    .btn-signup:hover { background: var(--purple-accent); transform: translateY(-2px); }
+    .btn-signin { background: transparent; border: 1.5px solid var(--teal-accent); color: var(--teal-accent); }
+    .btn-signin:hover { background: var(--teal-accent); color: var(--bg-color); transform: translateY(-2px); }
+
+    .slider-container {
+      position: relative; width: 100%; height: 380px; overflow: hidden; border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12); border: 1px solid var(--border-color);
+    }
+    .slides { display: flex; width: 400%; height: 100%; transition: transform 0.6s ease-in-out; }
+    .slide { width: 25%; height: 100%; position: relative; background: #e0dcc0; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .slide-caption {
+      position: absolute; bottom: 0; left: 0; width: 100%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.75));
+      color: #FFFDD0; padding: 1.5rem 1rem 2.2rem 1rem; text-align: center;
+    }
+    .slide-caption h4 { font-size: 1.2rem; margin-bottom: 0.2rem; }
+    .slide-caption p { font-size: 0.85rem; opacity: 0.9; }
+
+    .slider-dots { position: absolute; bottom: 12px; width: 100%; display: flex; justify-content: center; gap: 8px; z-index: 10; }
+    .dot { width: 10px; height: 10px; background: rgba(255,255,255,0.6); border-radius: 50%; cursor: pointer; transition: 0.3s; }
+    .dot.active { background: var(--teal-accent); transform: scale(1.2); }
+
+    /* General Grid & Cards */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.8rem; margin-top: 1.5rem; }
+    .card {
+      background: var(--card-bg); color: #333; padding: 2rem; border-radius: 10px;
+      border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+    .card h3 { color: var(--teal-accent); margin-bottom: 0.4rem; }
+    .card .date { font-size: 0.8rem; font-weight: bold; color: var(--purple-accent); margin-bottom: 0.8rem; }
+
+    /* Other Therapist Contact Actions */
+    .therapist-actions { display: flex; gap: 10px; margin-top: 1.2rem; }
+    .btn-contact-sm {
+      flex: 1; text-align: center; padding: 0.5rem 0.8rem; border-radius: 6px;
+      font-size: 0.82rem; font-weight: 700; text-decoration: none; transition: var(--transition-smooth);
+    }
+    .btn-wa { background: #25D366; color: white; }
+    .btn-wa:hover { background: #1eb856; }
+    .btn-email { background: var(--teal-accent); color: white; }
+    .btn-email:hover { background: var(--purple-accent); }
+
+    /* Price Cards */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .price-card {
+      background: #FFFFFF; border-radius: 14px; padding: 2.2rem 1.8rem;
+      border: 1.5px solid var(--border-color); position: relative;
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    }
+    .price-card:hover { transform: translateY(-8px); border-color: var(--teal-accent); }
+    .price-card.featured { border: 2px solid var(--teal-accent); background: linear-gradient(180deg, #FFFFFF, #F5F9F8); }
+    .badge {
+      position: absolute; top: -12px; right: 20px; background: var(--teal-accent);
+      color: #FFFDD0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
+    }
+    .price-header h3 { font-size: 1.3rem; color: var(--teal-accent); margin-bottom: 0.5rem; }
+    .price-amount { font-size: 2.2rem; font-weight: 800; color: var(--purple-accent); margin: 0.8rem 0 1.2rem 0; line-height: 1; }
+    .price-amount span { font-size: 0.9rem; font-weight: 600; color: #666; }
+    .price-features { list-style: none; margin-bottom: 1.8rem; }
+    .price-features li { font-size: 0.9rem; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 8px; color: #444; }
+    .price-features li::before { content: "✓"; color: var(--teal-accent); font-weight: bold; }
+    .btn-select-plan {
+      display: block; text-align: center; padding: 0.8rem; border-radius: 6px;
+      background: var(--teal-accent); color: var(--bg-color); font-weight: 700;
+      text-decoration: none; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; transition: var(--transition-smooth);
+    }
+    .btn-select-plan:hover { background: var(--purple-accent); }
+
+    /* Google Meet Section */
+    .demo-meet-card {
+      background: linear-gradient(135deg, #2C5E58, #1E423E);
+      color: #FFFDD0; border-radius: 12px; padding: 3rem; text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .demo-meet-card h3 { font-size: 2rem; margin-bottom: 1rem; color: #FFFDD0; }
+    .demo-meet-card p { max-width: 650px; margin: 0 auto 1.8rem auto; font-size: 1.05rem; opacity: 0.95; }
+    .btn-meet {
+      display: inline-flex; align-items: center; gap: 10px; background: #FFFDD0; color: #2C5E58;
+      padding: 0.9rem 2rem; border-radius: 30px; font-weight: 800; text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: var(--transition-smooth);
+    }
+    .btn-meet:hover { transform: scale(1.05); background: #ffffff; }
+
+    /* Reviews Section */
+    .review-stars { color: #f39c12; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .review-author { font-weight: 700; color: var(--teal-accent); margin-top: 1rem; text-align: right; font-size: 0.9rem; }
+
+    /* Form Styles */
+    .form-wrapper {
+      background: #FFFFFF; border: 1px solid var(--border-color);
+      border-radius: 12px; padding: 2.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+      max-width: 750px; margin-top: 1.5rem;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group-full { grid-column: span 2; }
+    .input-label { font-size: 0.85rem; font-weight: 700; color: var(--teal-accent); margin-bottom: 0.4rem; display: block; }
+    input, textarea, select {
+      width: 100%; padding: 0.85rem 1rem; background: #FDFDFB; border: 1.5px solid var(--border-color);
+      color: #333; border-radius: 6px; font-size: 0.95rem; transition: var(--transition-smooth);
+    }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--teal-accent); background: #FFFFFF; box-shadow: 0 0 0 3px rgba(44, 94, 88, 0.1); }
+    button, .submit-btn {
+      padding: 1rem 2.2rem; background: var(--teal-accent); color: var(--bg-color);
+      border: none; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase;
+      letter-spacing: 1px; transition: var(--transition-smooth);
+    }
+    button:hover, .submit-btn:hover { background: var(--purple-accent); transform: translateY(-2px); }
+
+    footer { padding: 3rem 10%; background: #F4EFCA; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; }
+
+    /* Floating Chat Widgets */
+    .floating-chat-container {
+      position: fixed; bottom: 25px; right: 25px; z-index: 9999;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+    }
+    .chat-btn {
+      width: 58px; height: 58px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; border: none; outline: none;
+    }
+    .chat-btn:hover { transform: scale(1.08); box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+    .whatsapp-btn { background-color: #25D366; color: #FFFFFF; text-decoration: none; }
+    .help-chat-btn { background-color: #2C5E58; color: #FFFDD0; }
+    .chat-btn svg { width: 30px; height: 30px; fill: currentColor; }
+
+    .chat-popup {
+      position: fixed; bottom: 95px; right: 25px; width: 340px; max-width: 85vw;
+      background: #FFFFFF; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      border: 1px solid rgba(92, 64, 51, 0.2); overflow: hidden; display: none;
+      flex-direction: column; z-index: 10000; transition: all 0.3s ease;
+    }
+    .chat-popup.active { display: flex; }
+    .chat-header { background: #2C5E58; color: #FFFDD0; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
+    .chat-header h4 { font-size: 1rem; font-weight: 700; margin: 0; }
+    .chat-header span { font-size: 0.75rem; opacity: 0.9; display: block; }
+    .close-chat { cursor: pointer; font-size: 1.4rem; font-weight: bold; line-height: 1; }
+
+    .chat-body { padding: 1rem; max-height: 250px; overflow-y: auto; background: #FFFDD0; font-size: 0.88rem; display: flex; flex-direction: column; gap: 10px; }
+    .chat-msg { padding: 8px 12px; border-radius: 8px; max-width: 85%; line-height: 1.4; }
+    .chat-msg.bot { background: #FFFFFF; color: #5C4033; align-self: flex-start; border: 1px solid rgba(92, 64, 51, 0.15); }
+    .chat-msg.user { background: #7A698D; color: #FFFFFF; align-self: flex-end; }
+
+    .chat-footer { padding: 0.8rem; background: #FFFFFF; border-top: 1px solid #EEEEEE; display: flex; gap: 8px; }
+    .chat-footer input { flex: 1; padding: 0.5rem 0.8rem; border: 1px solid #CCC; border-radius: 4px; font-size: 0.85rem; }
+    .chat-footer button { padding: 0.5rem 0.9rem; background: #2C5E58; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
+
+    @media (max-width: 900px) {
+      .menu-toggle { display: flex; }
+      .nav-links {
+        display: none; flex-direction: column; position: absolute;
+        top: 100%; left: 0; width: 100%; background: var(--bg-color); padding: 1.5rem; border-bottom: 1px solid var(--border-color);
+      }
+      .nav-links.active { display: flex; }
+      .hero-content { width: 92%; padding: 2rem 1.5rem; }
+      .hero-content h1 { font-size: 2.2rem; }
+      .hero-content h2 { font-size: 1.5rem; }
+      .profile-section-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group-full { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="panelOverlay" onclick="closeAllModals()"></div>
+
+  <!-- Sign In Drawer -->
+  <div id="loginPanel" class="auth-panel">
+    <div class="close-panel" onclick="toggleLoginPanel()">&times;</div>
+    <h2>Client Sign In</h2>
+    <p class="subtitle">Access your therapy portal, session history, and resources.</p>
+    <form onsubmit="handleLogin(event)">
+      <input type="email" id="loginEmail" placeholder="Registered Email (e.g. client@ikibloom.com)" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit" class="submit-btn" style="width:100%;">Sign In & Go to Dashboard</button>
+    </form>
+    <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #666; text-align: center;">
+      New to IKIBLOOM? <a href="javascript:void(0)" onclick="switchToSignUp()" style="color:var(--teal-accent); font-weight:bold;">Create an account</a>
+    </p>
+  </div>
+
+  <!-- Sign Up Drawer -->
+  <div id="signUpPanel" class="auth-panel">
+    <div class="close-panel" onclick="toggleSignUpPanel()">&times;</div>
+    <h2>New Client Registration</h2>
+    <p class="subtitle">Create your confidential account to get started with therapy.</p>
+    <form onsubmit="handleSignUp(event)">
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="tel" placeholder="Phone Number" required>
+      <select required>
+        <option value="" disabled selected>Preferred Consultation Mode</option>
+        <option value="online">Online Consultation</option>
+        <option value="in-clinic">In-Clinic (Lucknow)</option>
+        <option value="hybrid">Hybrid Plan</option>
+      </select>
+      <input type="password" placeholder="Create Password" required>
+      <input type="password" placeholder="Confirm Password" required>
+      <button type="submit" class="submit-btn" style="width:100%;">Create Account & Enter Dashboard</button>
+    </form>
+    <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #666; text-align: center;">
+      Already registered? <a href="javascript:void(0)" onclick="switchToSignIn()" style="color:var(--teal-accent); font-weight:bold;">Sign In</a>
+    </p>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand-container">
+      <svg class="logo-img" viewBox="0 0 100 100" fill="none">
+        <path d="M50 85 C30 85 20 65 25 45 C35 55 45 65 50 85 Z" fill="#2C5E58" opacity="0.8"/>
+        <path d="M50 85 C70 85 80 65 75 45 C65 55 55 65 50 85 Z" fill="#2C5E58" opacity="0.8"/>
+        <path d="M50 85 C35 60 30 35 45 20 C50 35 52 55 50 85 Z" fill="#7A698D" opacity="0.8"/>
+        <path d="M50 85 C65 60 70 35 55 20 C50 35 48 55 50 85 Z" fill="#A88B9D" opacity="0.8"/>
+        <path d="M50 85 C50 50 40 30 50 10 C60 30 50 50 50 85 Z" fill="#6A9A8B" opacity="0.9"/>
+      </svg>
+      <div class="brand-text">
+        <div class="website-name">IKIBLOOM</div>
+        <div class="tagline">Psychotherapy & Counselling</div>
+      </div>
+    </div>
+    <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
+    
+    <ul class="nav-links" id="nav-list">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="linkedin.html">LinkedIn</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <!-- Connected direct link to Client Profile Dashboard -->
+      <li><a href="client-profile.html" class="login-btn">Client Portal</a></li>
+    </ul>
+  </header>
+
+  <!-- Banner Hero Section -->
+  <section id="hero" class="hero-section fade-in-section">
+    <div class="hero-container">
+      <div class="hero-image">
+        <img src="img1.png" alt="live and flourish - IKIBLOOM">
+      </div>
+      <div class="hero-content">
+        <h1>Welcome to IKIBLOOM.</h1>
+        <h2>I am Aryan Khare</h2>
+        <h3>Behavioral Analyst &amp; Psychological Researcher</h3>
+        <blockquote>
+          "Decoding human behavior at the intersection of mind, environment, and action. Providing evidence-based psychotherapy, cognitive behavioral interventions, neuroplasticity frameworks, and psychodynamic counseling tailored for clinical growth."
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aryan Khare Profile & Slider Section -->
+  <section id="aryan-profile" class="fade-in-section">
+    <div class="profile-section-grid">
+      <div class="profile-info">
+        <span class="role-badge">Lead Therapist & Researcher</span>
+        <h3>Aryan Khare</h3>
+        <p><strong>Behavioral Specialist & Psychotherapy Practitioner</strong></p>
+        <p>With an MA in Psychology from National Post Graduate College, Lucknow, Aryan specializes in identifying cognitive distortions, constructing systematic behavior modification blueprints, and fostering sustainable emotional resilience.</p>
+        <p>His clinical framework bridges academic psycho-diagnostics with compassionate, individual-centered therapeutic interventions.</p>
+
+        <!-- Profile Client Portal Access Box (Connected to Profile Dashboard) -->
+        <div class="profile-auth-box">
+          <h4>Client Portal Access</h4>
+          <p>Register as a new client or sign in to view your scheduled sessions and therapy records.</p>
+          <div class="profile-auth-btns">
+            <button class="btn-auth btn-signup" onclick="toggleSignUpPanel()">Sign Up</button>
+            <button class="btn-auth btn-signin" onclick="toggleLoginPanel()">Sign In</button>
+            <a href="client-profile.html" class="btn-auth btn-signin" style="text-align:center; background: var(--teal-accent); color: var(--bg-color);">Go to Dashboard →</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="slider-container">
+        <div class="slides" id="imageSlider">
+          <div class="slide">
+            <img src="a.jpeg" alt="Aryan Khare - Lead Clinical Psychotherapist">
+            <div class="slide-caption">
+              <h4>Aryan Khare</h4>
+              <p>Lead Clinical Psychotherapist</p>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="b.jpeg" alt="Nur Manzil Internships - Psychiatric Diagnostic Observations">
+            <div class="slide-caption">
+              <h4>Nur Manzil Internships</h4>
+              <p>Psychiatric Diagnostic Observations</p>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="c.jpeg" alt="Sambal Hospital Care - Addiction & Behavior Modification">
+            <div class="slide-caption">
+              <h4>Sambal Hospital Care</h4>
+              <p>Addiction & Behavior Modification</p>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="d.jpeg" alt="Behavioral Workshops - Group Resilience & Coaching">
+            <div class="slide-caption">
+              <h4>Behavioral Workshops</h4>
+              <p>Group Resilience & Coaching</p>
+            </div>
+          </div>
+        </div>
+        <div class="slider-dots">
+          <span class="dot active" onclick="setSlide(0)"></span>
+          <span class="dot" onclick="setSlide(1)"></span>
+          <span class="dot" onclick="setSlide(2)"></span>
+          <span class="dot" onclick="setSlide(3)"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic Background -->
+  <section id="about" class="fade-in-section">
+    <h2>Academic Foundation & Epistemology</h2>
+    <p style="margin-bottom: 1.5rem;">My clinical practice operates on rigorous empirical inquiry, psycho-diagnostics, and systematic behavioral interventions. Holding a <strong>Master of Arts in Psychology</strong> from National Post Graduate College, Lucknow, my research focuses on transforming complex psychological theory into impactful clinical solutions.</p>
+    <div class="grid">
+      <div class="card">
+        <div>
+          <h3>Master of Arts in Psychology</h3>
+          <div class="date">Completed | NPGC, Lucknow</div>
+          <p>Specialized in psychological assessment report writing, research design methodologies, clinical interviewing, and data interpretation.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <h3>Bachelor of Arts in Psychology</h3>
+          <div class="date">2021 – 2024 | NPGC, Lucknow</div>
+          <p>Core education in cognitive behavior dynamics, behavioral observation, emotional resilience, and neuro-cognitive frameworks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clinical Experience -->
+  <section id="experience" class="fade-in-section">
+    <h2>Clinical Exposure & Internships</h2>
+    <div class="grid">
+      <div class="card">
+        <div>
+          <h3>Nur Manzil Psychiatric Center</h3>
+          <div class="date">Psychology Intern | Jan 2026</div>
+          <p>Direct exposure to acute psychiatric procedures, clinical diagnostic evaluations, psychopathological case histories, and therapeutic intervention observation.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <h3>Sambal Drug De-addiction Hospital</h3>
+          <div class="date">Intern | Feb 2025</div>
+          <p>Practical application of addiction rehabilitation strategies, behavioral modification protocols, and psychiatric recovery care.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <h3>Fortis Mental Healthcare</h3>
+          <div class="date">Observer / Intern</div>
+          <p>Observational grounding in psychotherapeutic dynamics, counseling rapport building, crisis intervention, and mental healthcare management.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Associated Therapists -->
+  <section id="team" class="fade-in-section">
+    <h2>Associated Clinical Specialists & Team</h2>
+    <p style="margin-bottom: 1rem;">Collaborating with experienced mental health practitioners to ensure comprehensive care. Reach out directly to connect with our associate specialists.</p>
+    <div class="grid">
+      <div class="card">
+        <div>
+          <h3>Dr. Ananya Sharma</h3>
+          <div class="date">Consultant Neuropsychologist</div>
+          <p>Specializing in cognitive assessments, memory rehabilitation, and adult ADHD diagnostic protocols.</p>
+        </div>
+        <div class="therapist-actions">
+          <a href="https://wa.me/917897891395?text=Hello%20Dr.%20Ananya,%20I%20would%20like%20to%20inquire%20about%20a%20neuropsychological%20consultation." target="_blank" class="btn-contact-sm btn-wa">WhatsApp</a>
+          <a href="mailto:therapyonthedot101@gmail.com?subject=Inquiry%20for%20Dr.%20Ananya%20Sharma" class="btn-contact-sm btn-email">Email</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h3>Rohan Verma, M.Phil</h3>
+          <div class="date">Child & Adolescent Therapist</div>
+          <p>Focusing on developmental psychology, emotional regulation in youth, and family dynamics counseling.</p>
+        </div>
+        <div class="therapist-actions">
+          <a href="https://wa.me/917897891395?text=Hello%20Rohan,%20I%20would%20like%20to%20inquire%20about%20child%20and%20adolescent%20counselling." target="_blank" class="btn-contact-sm btn-wa">WhatsApp</a>
+          <a href="mailto:therapyonthedot101@gmail.com?subject=Inquiry%20for%20Rohan%20Verma" class="btn-contact-sm btn-email">Email</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h3>Sneha Kapoor, M.A.</h3>
+          <div class="date">Trauma & Mindfulness Specialist</div>
+          <p>Expert in Somatic Experiencing, mindfulness-based stress reduction (MBSR), and PTSD recovery therapy.</p>
+        </div>
+        <div class="therapist-actions">
+          <a href="https://wa.me/917897891395?text=Hello%20Sneha,%20I%20would%20like%20to%20inquire%20about%20trauma%20and%20mindfulness%20therapy." target="_blank" class="btn-contact-sm btn-wa">WhatsApp</a>
+          <a href="mailto:therapyonthedot101@gmail.com?subject=Inquiry%20for%20Sneha%20Kapoor" class="btn-contact-sm btn-email">Email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="fade-in-section">
+    <h2>Therapy Investment Tiers</h2>
+    <p>Transparent, structured pricing tailored to individual therapeutic journeys and long-term behavioral growth.</p>
+    
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-header">
+          <h3>Online Consultation</h3>
+          <p>Virtual 1-on-1 Session</p>
+        </div>
+        <div class="price-amount">₹1,500 <span>/ hr</span></div>
+        <ul class="price-features">
+          <li>Secure encrypted video session</li>
+          <li>Cognitive Behavior Assessment</li>
+          <li>Digital Session Summaries</li>
+          <li>Flexible rescheduling</li>
+        </ul>
+        <a href="#contact" class="btn-select-plan">Book Session</a>
+      </div>
+
+      <div class="price-card featured">
+        <span class="badge">Most Popular</span>
+        <div class="price-header">
+          <h3>Offline In-Clinic</h3>
+          <p>In-Person Session Lucknow</p>
+        </div>
+        <div class="price-amount">₹2,000 <span>/ hr</span></div>
+        <ul class="price-features">
+          <li>Face-to-face psychodynamic care</li>
+          <li>Comprehensive Diagnostic Evaluation</li>
+          <li>Personalized coping exercises</li>
+          <li>Direct therapeutic environment</li>
+        </ul>
+        <a href="#contact" class="btn-select-plan">Book Clinic Visit</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-header">
+          <h3>Hybrid Therapy</h3>
+          <p>Blended Monthly Care</p>
+        </div>
+        <div class="price-amount">₹3,500 <span>/ mo</span></div>
+        <ul class="price-features">
+          <li>2 In-clinic + 2 Online sessions</li>
+          <li>Weekly behavioral goals tracking</li>
+          <li>Email consultation support</li>
+          <li>Tailored psychological homework</li>
+        </ul>
+        <a href="#contact" class="btn-select-plan">Select Hybrid Plan</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-header">
+          <h3>Conducted Workshops</h3>
+          <p>Group Resilience Sessions</p>
+        </div>
+        <div class="price-amount">₹2,500 <span>/ session</span></div>
+        <ul class="price-features">
+          <li>Stress & Burnout management</li>
+          <li>Interactive group exercises</li>
+          <li>Mindfulness practice toolkits</li>
+          <li>Corporate & Academic availability</li>
+        </ul>
+        <a href="#contact" class="btn-select-plan">Request Workshop</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-header">
+          <h3>Personal Visit</h3>
+          <p>On-Site Specialist Visit</p>
+        </div>
+        <div class="price-amount">₹4,000 <span>/ visit</span></div>
+        <ul class="price-features">
+          <li>Direct home / specialized site visit</li>
+          <li>In-depth observational consultation</li>
+          <li>Family intervention counseling</li>
+          <li>Dedicated 90-minute session</li>
+        </ul>
+        <a href="#contact" class="btn-select-plan">Schedule Visit</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-header">
+          <h3>Monthly Subscription</h3>
+          <p>Continuous Psychological Care</p>
+        </div>
+        <div class="price-amount">₹6,000 <span>/ mo</span></div>
+        <ul class="price-features">
+          <li>4 Full 1-on-1 counseling sessions</li>
+          <li>Continuous WhatsApp support</li>
+          <li>Priority emergency scheduling</li>
+          <li>Monthly behavioral progress report</li>
+        </ul>
+        <a href="#contact" class="btn-select-plan">Subscribe Care</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Google Meet Demo Section -->
+  <section id="demo-meet" class="fade-in-section">
+    <div class="demo-meet-card">
+      <h3>Schedule a 15-Minute Google Meet Demo Session</h3>
+      <p>Unsure which therapeutic path aligns with your goals? Join a free 15-minute introductory video orientation on Google Meet to meet Aryan Khare and discuss your consultation structure.</p>
+      <a href="https://meet.google.com/new" target="_blank" class="btn-meet">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+        </svg>
+        Launch Demo Link / Meet Consultation
+      </a>
+    </div>
+  </section>
+
+  <!-- Patient Reviews -->
+  <section id="reviews" class="fade-in-section">
+    <h2>Client Testimonials & Feedback</h2>
+    <div class="grid" id="reviewsContainer">
+      <div class="card">
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <p>"Aryan's CBT sessions gave me concrete techniques to manage workplace panic attacks. His analytical framework is both clear and deeply supportive."</p>
+        </div>
+        <div class="review-author">— Professional Client, Lucknow</div>
+      </div>
+      <div class="card">
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <p>"The hybrid model worked perfectly for my busy routine. The online consultations felt just as personalized and focused as in-clinic visits."</p>
+        </div>
+        <div class="review-author">— Post-Graduate Student</div>
+      </div>
+    </div>
+
+    <!-- Review Submission Form -->
+    <div class="form-wrapper" style="margin-top:2.5rem;">
+      <h3 style="color:var(--teal-accent); margin-bottom:1rem;">Share Your Experience</h3>
+      <form onsubmit="handleReviewSubmit(event)">
+        <div class="form-grid">
+          <div>
+            <label class="input-label">Your Name / Pseudonym</label>
+            <input type="text" id="reviewName" placeholder="e.g. S. Sharma" required>
+          </div>
+          <div>
+            <label class="input-label">Rating</label>
+            <select id="reviewRating">
+              <option value="5">★★★★★ (5/5)</option>
+              <option value="4">★★★★☆ (4/5)</option>
+            </select>
+          </div>
+          <div class="form-group-full">
+            <label class="input-label">Your Feedback & Review</label>
+            <textarea id="reviewText" rows="3" placeholder="Share how therapy helped your mental wellbeing..." required></textarea>
+          </div>
+          <div class="form-group-full">
+            <button type="submit" style="width:100%;">Submit Client Review</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Intake Form -->
+  <section id="contact" class="fade-in-section">
+    <h2>Patient Intake & Consultation Request</h2>
+    <p>Submit your details to schedule a confidential psychological consultation with Aryan Khare.</p>
+    
+    <div class="form-wrapper">
+      <form id="intakeForm" action="https://formsubmit.co/therapyonthedot101@gmail.com" method="POST">
+        <input type="text" name="_honey" style="display:none">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://ikibloom.com/thanks.html">
+        
+        <div class="form-grid">
+          <div>
+            <label class="input-label">Full Name</label>
+            <input type="text" name="Patient Name" placeholder="e.g. Jane Doe" required>
+          </div>
+          <div>
+            <label class="input-label">Contact Number</label>
+            <input type="tel" name="Phone Number" placeholder="+91 9876543210" required>
+          </div>
+          <div>
+            <label class="input-label">Email Address</label>
+            <input type="email" name="Email" placeholder="jane@example.com" required>
+          </div>
+          <div>
+            <label class="input-label">Preferred Session Type</label>
+            <select name="Session Type">
+              <option value="Online Consultation">Online Consultation (₹1,500/hr)</option>
+              <option value="Offline In-Clinic">Offline In-Clinic (₹2,000/hr)</option>
+              <option value="Hybrid Therapy">Hybrid Therapy (₹3,500/mo)</option>
+              <option value="Conducted Workshops">Conducted Workshops (₹2,500/sess)</option>
+              <option value="Personal Visit">Personal Visit (₹4,000/visit)</option>
+              <option value="Monthly Subscription">Monthly Subscription (₹6,000/mo)</option>
+            </select>
+          </div>
+          <div class="form-group-full">
+            <label class="input-label">Primary Concerns / Consultation Goals</label>
+            <textarea name="Primary Concerns" rows="4" placeholder="Briefly describe what you'd like support with..." required></textarea>
+          </div>
+          <div class="form-group-full">
+            <button type="submit" style="width:100%;">Submit Consultation Request</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div>
+      <div class="website-name" style="color:var(--teal-accent);">IKIBLOOM</div>
+      <p style="font-size:0.85rem; margin-top:0.5rem; max-width:300px;">Evidence-Based Psychotherapy & Behavioural Analysis by Aryan Khare in Lucknow.</p>
+    </div>
+    <div>
+      <p><strong>Contact Direct</strong></p>
+      <p style="font-size:0.85rem;">Email: therapyonthedot101@gmail.com</p>
+      <p style="font-size:0.85rem;">Phone: +91 7897891395</p>
+      <p style="font-size:0.85rem;">Location: Lucknow, Uttar Pradesh</p>
+    </div>
+    <div style="width:100%; border-top:1px solid rgba(92, 64, 51, 0.1); padding-top:1rem; font-size:0.75rem; text-align:center; opacity:0.8;">
+      &copy; 2026 IKIBLOOM | All Rights Reserved. Confidential & Secure Mental Health Practice.
+    </div>
+  </footer>
+
+  <!-- Floating Chat Widgets -->
+  <div class="floating-chat-container">
+    <button class="chat-btn help-chat-btn" onclick="toggleHelpChat()" title="Ask Questions">
+      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/></svg>
+    </button>
+    <a href="https://wa.me/917897891395?text=Hello%20Aryan,%20I%20would%20like%20to%20inquire%20about%20a%20therapy%20session." target="_blank" class="chat-btn whatsapp-btn" title="Chat on WhatsApp">
+      <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    </a>
+  </div>
+
+  <!-- Help Chat Popup -->
+  <div class="chat-popup" id="helpChatPopup">
+    <div class="chat-header">
+      <div>
+        <h4>IKIBLOOM Support Assistant</h4>
+        <span>Ask about pricing, sessions, or booking</span>
+      </div>
+      <span class="close-chat" onclick="toggleHelpChat()">&times;</span>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-msg bot">Hello! How can I assist you regarding Aryan Khare's psychotherapy practice today?</div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="handleChatKeyPress(event)">
+      <button onclick="sendChatMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    /* Image Slider Functionality */
+    let currentSlide = 0;
+    const slidesContainer = document.getElementById('imageSlider');
+    const dots = document.querySelectorAll('.dot');
+
+    function setSlide(index) {
+      currentSlide = index;
+      slidesContainer.style.transform = `translateX(-${currentSlide * 25}%)`;
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+    }
+
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % 4;
+      setSlide(currentSlide);
+    }, 5000);
+
+    /* Navigation & Modal Toggles */
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+    const loginPanel = document.getElementById('loginPanel');
+    const signUpPanel = document.getElementById('signUpPanel');
+    const panelOverlay = document.getElementById('panelOverlay');
+
+    mobileMenu.addEventListener('click', () => {
+      navList.classList.toggle('active');
+    });
+
+    function toggleLoginPanel() {
+      signUpPanel.classList.remove('active');
+      loginPanel.classList.toggle('active');
+      if (loginPanel.classList.contains('active')) {
+        panelOverlay.classList.add('active');
+      } else {
+        panelOverlay.classList.remove('active');
+      }
+    }
+
+    function toggleSignUpPanel() {
+      loginPanel.classList.remove('active');
+      signUpPanel.classList.toggle('active');
+      if (signUpPanel.classList.contains('active')) {
+        panelOverlay.classList.add('active');
+      } else {
+        panelOverlay.classList.remove('active');
+      }
+    }
+
+    function switchToSignUp() {
+      loginPanel.classList.remove('active');
+      signUpPanel.classList.add('active');
+    }
+
+    function switchToSignIn() {
+      signUpPanel.classList.remove('active');
+      loginPanel.classList.add('active');
+    }
+
+    function closeAllModals() {
+      loginPanel.classList.remove('active');
+      signUpPanel.classList.remove('active');
+      panelOverlay.classList.remove('active');
+    }
+
+    /* Handlers connecting forms to client-profile.html */
+    function handleLogin(e) {
+      e.preventDefault();
+      alert('Authentication successful! Redirecting to your IKIBLOOM Client Dashboard...');
+      window.location.href = 'client-profile.html';
+    }
+
+    function handleSignUp(e) {
+      e.preventDefault();
+      alert('Registration successful! Redirecting to your new IKIBLOOM Client Dashboard...');
+      window.location.href = 'client-profile.html';
+    }
+
+    /* Scroll Animations */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in-section').forEach(section => observer.observe(section));
+
+    /* Review Form Handler */
+    function handleReviewSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('reviewName').value;
+      const rating = document.getElementById('reviewRating').value;
+      const text = document.getElementById('reviewText').value;
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div>
+          <div class="review-stars">${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</div>
+          <p>"${text}"</p>
+        </div>
+        <div class="review-author">— ${name}</div>
+      `;
+
+      document.getElementById('reviewsContainer').appendChild(card);
+      e.target.reset();
+      alert('Thank you for sharing your experience!');
+    }
+
+    /* Help Chatbot Functionality */
+    function toggleHelpChat() {
+      const popup = document.getElementById('helpChatPopup');
+      popup.classList.toggle('active');
+    }
+
+    function handleChatKeyPress(e) {
+      if (e.key === 'Enter') sendChatMessage();
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const chatBody = document.getElementById('chatBody');
+      
+      const userMsg = document.createElement('div');
+      userMsg.className = 'chat-msg user';
+      userMsg.textContent = text;
+      chatBody.appendChild(userMsg);
+
+      input.value = '';
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'chat-msg bot';
+        
+        const lower = text.toLowerCase();
+        if (lower.includes('price') || lower.includes('cost') || lower.includes('fee')) {
+          botMsg.textContent = 'Our session tiers start from ₹1,500/hr for online consultations up to ₹6,000/mo for full monthly subscription care.';
+        } else if (lower.includes('book') || lower.includes('appointment') || lower.includes('meet')) {
+          botMsg.textContent = 'You can book a session directly using our Intake Form on this page or launch a free 15-minute demo Meet consultation!';
+        } else if (lower.includes('location') || lower.includes('clinic') || lower.includes('where')) {
+          botMsg.textContent = 'In-clinic sessions take place in Lucknow. Online sessions are hosted via secure encrypted video calls.';
+        } else {
+          botMsg.textContent = 'Thank you for reaching out! For detailed queries, please submit the intake form below or contact via WhatsApp.';
+        }
+        
+        chatBody.appendChild(botMsg);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 600);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aryan Khare | Professional Profile & LinkedIn Portfolio</title>
+  <style>
+    :root {
+      --bg-color: #FFFDD0;
+      --text-main: #5C4033;
+      --teal-accent: #2C5E58;
+      --purple-accent: #7A698D;
+      --card-bg: #FFFFFF;
+      --border-color: rgba(92, 64, 51, 0.2);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; padding-bottom: 3rem; }
+
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 5%; background: rgba(255, 253, 208, 0.95); border-bottom: 1px solid var(--border-color);
+      position: sticky; top: 0; z-index: 90;
+    }
+    .website-name { font-size: 1.4rem; font-weight: 800; color: var(--teal-accent); text-transform: uppercase; }
+    nav a { color: var(--text-main); text-decoration: none; margin-left: 1.5rem; font-weight: 600; }
+    nav a:hover, nav a.active { color: var(--teal-accent); }
+
+    .container { padding: 3rem 10%; max-width: 1000px; margin: auto; }
+    
+    .profile-card {
+      background: #fff; padding: 2.5rem; border-radius: 8px; border: 1px solid var(--border-color);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 2rem;
+    }
+    .profile-head { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .profile-avatar { width: 90px; height: 90px; background: var(--teal-accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: bold; }
+    
+    .profile-title h1 { font-size: 2rem; color: var(--teal-accent); }
+    .profile-title p { font-weight: 600; color: var(--purple-accent); }
+
+    .section-title { font-size: 1.4rem; color: var(--teal-accent); margin-bottom: 1rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.3rem; text-transform: uppercase; }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .skill-box { background: #f7f6e6; padding: 1rem; border-radius: 6px; border-left: 4px solid var(--teal-accent); }
+    .skill-box h4 { font-size: 0.95rem; color: var(--teal-accent); margin-bottom: 0.3rem; }
+
+    .btn-connect {
+      display: inline-block; padding: 0.8rem 1.8rem; background: #0077b5; color: white;
+      text-decoration: none; border-radius: 4px; font-weight: bold; transition: 0.3s;
+    }
+    .btn-connect:hover { background: #005582; }
+
+    /* Floating Chat Widget CSS */
+    .floating-chat-container {
+      position: fixed; bottom: 25px; right: 25px; z-index: 9999;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+    }
+    .chat-btn {
+      width: 55px; height: 55px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; border: none; outline: none;
+    }
+    .chat-btn:hover { transform: scale(1.08); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+    .whatsapp-btn { background-color: #25D366; color: #FFFFFF; text-decoration: none; }
+    .help-chat-btn { background-color: #2C5E58; color: #FFFFFF; }
+    .chat-btn svg { width: 28px; height: 28px; fill: currentColor; }
+
+    .chat-popup {
+      position: fixed; bottom: 95px; right: 25px; width: 330px; max-width: 85vw;
+      background: #FFFFFF; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      border: 1px solid rgba(92, 64, 51, 0.2); overflow: hidden; display: none;
+      flex-direction: column; z-index: 10000; transition: all 0.3s ease;
+    }
+    .chat-popup.active { display: flex; }
+    .chat-header { background: #2C5E58; color: #FFFDD0; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
+    .chat-header h4 { font-size: 1rem; font-weight: 700; margin: 0; }
+    .chat-header span { font-size: 0.75rem; opacity: 0.9; display: block; }
+    .close-chat { cursor: pointer; font-size: 1.4rem; font-weight: bold; line-height: 1; }
+
+    .chat-body { padding: 1rem; max-height: 250px; overflow-y: auto; background: #FFFDD0; font-size: 0.88rem; display: flex; flex-direction: column; gap: 10px; }
+    .chat-msg { padding: 8px 12px; border-radius: 8px; max-width: 85%; line-height: 1.4; }
+    .chat-msg.bot { background: #FFFFFF; color: #5C4033; align-self: flex-start; border: 1px solid rgba(92, 64, 51, 0.15); }
+    .chat-msg.user { background: #7A698D; color: #FFFFFF; align-self: flex-end; }
+
+    .chat-footer { padding: 0.8rem; background: #FFFFFF; border-top: 1px solid #EEEEEE; display: flex; gap: 8px; }
+    .chat-footer input { flex: 1; padding: 0.5rem 0.8rem; border: 1px solid #CCC; border-radius: 4px; font-size: 0.85rem; }
+    .chat-footer button { padding: 0.5rem 0.9rem; background: #2C5E58; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="website-name">Aryan Khare | Professional Profile</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Media Gallery</a>
+      <a href="linkedin.html" class="active">LinkedIn Profile</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="profile-card">
+      <div class="profile-head">
+        <div class="profile-avatar">AK</div>
+        <div class="profile-title">
+          <h1>Aryan Khare</h1>[cite: 1]
+          <p>Behavioral Analyst & Psychological Researcher | Psychotherapy Specialist</p>[cite: 1]
+          <span style="font-size: 0.85rem; color: #666;">Lucknow, Uttar Pradesh, India • Age 22</span>[cite: 1]
+        </div>
+      </div>
+      <p style="font-style: italic; font-size: 1.05rem; margin-bottom: 1.5rem;">
+        "Decoding human behavior at the intersection of mind, environment, and action. Driven by curiosity and a holistic mindset to transform psychological theory into meaningful real-world impact."[cite: 1]
+      </p>
+      <a href="https://linkedin.com" target="_blank" class="btn-connect">Connect on LinkedIn</a>
+    </div>
+
+    <!-- Core Competencies -->
+    <h2 class="section-title">Core Competencies & Toolkit</h2>
+    <div class="skills-grid">
+      <div class="skill-box">
+        <h4>Analytical & Assessment</h4>
+        <p style="font-size: 0.85rem;">Psychological Report Writing, Behavioral Observation, Data Interpretation[cite: 1].</p>
+      </div>
+      <div class="skill-box">
+        <h4>Clinical Methodology</h4>
+        <p style="font-size: 0.85rem;">Clinical Interviewing, Diagnostic Case Analysis, CBT Intervention Framing[cite: 1].</p>
+      </div>
+      <div class="skill-box">
+        <h4>Interpersonal Skills</h4>
+        <p style="font-size: 0.85rem;">Empathetic Communication, Active Listening, Crisis Rapport Building[cite: 1].</p>
+      </div>
+    </div>
+
+    <!-- Professional Experience -->
+    <div class="profile-card">
+      <h2 class="section-title">Practical Experience Footprint</h2>
+      
+      <div style="margin-bottom: 1.5rem;">
+        <h3 style="color:var(--teal-accent);">Psychology Intern</h3>
+        <p style="font-weight: bold; font-size: 0.85rem; color:var(--purple-accent);">Nur Manzil Psychiatric Center | Jan 2026</p>[cite: 1]
+        <p style="font-size: 0.9rem; margin-top: 0.3rem;">Immersed in clinical exposure, acute diagnostic procedures, case histories, and mental health interventions[cite: 1].</p>
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <h3 style="color:var(--teal-accent);">Psychiatric Intern</h3>
+        <p style="font-weight: bold; font-size: 0.85rem; color:var(--purple-accent);">Sambal Drug De-addiction & Psychiatric Hospital | Feb 2025</p>[cite: 1]
+        <p style="font-size: 0.9rem; margin-top: 0.3rem;">Hands-on training in addiction management, rehabilitation protocols, and psychiatric recovery care[cite: 1].</p>
+      </div>
+
+      <div>
+        <h3 style="color:var(--teal-accent);">Observer / Intern</h3>
+        <p style="font-weight: bold; font-size: 0.85rem; color:var(--purple-accent);">Fortis Mental Healthcare</p>[cite: 1]
+        <p style="font-size: 0.9rem; margin-top: 0.3rem;">Grounding in psychological disorders, counselling dynamics, and clinical intervention models[cite: 1].</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Chat Widgets -->
+  <div class="floating-chat-container">
+    <a href="https://wa.me/917897891395?text=Hello%20Aryan,%20I%20would%20like%20to%20inquire%20about%20a%20psychological%20consultation%20at%20IKIBLOOM." 
+       target="_blank" class="chat-btn whatsapp-btn" title="Chat on WhatsApp" aria-label="WhatsApp Chat">
+      <svg viewBox="0 0 24 24">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+    </a>
+    <button class="chat-btn help-chat-btn" onclick="toggleHelpChat()" title="Live Help Chat" aria-label="Helping Chat">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5L2.5 21.5l4.5-.838A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="helpChatBox" class="chat-popup">
+    <div class="chat-header">
+      <div>
+        <h4>IKIBLOOM Support Assistant</h4>
+        <span>Online | Live Psychological Guidance</span>
+      </div>
+      <div class="close-chat" onclick="toggleHelpChat()">&times;</div>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-msg bot">Hello! Welcome to IKIBLOOM. How can we assist you with our therapy services or consultation scheduling today?</div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendChatMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleHelpChat() {
+      document.getElementById('helpChatBox').classList.toggle('active');
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const chatBody = document.getElementById('chatBody');
+      const text = input.value.trim();
+
+      if (text !== "") {
+        const userMsg = document.createElement('div');
+        userMsg.className = 'chat-msg user';
+        userMsg.innerText = text;
+        chatBody.appendChild(userMsg);
+        input.value = "";
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        setTimeout(() => {
+          const botMsg = document.createElement('div');
+          botMsg.className = 'chat-msg bot';
+          botMsg.innerText = "Thank you for contacting IKIBLOOM. For immediate appointments or urgent queries, click the green WhatsApp icon above or fill out our Intake Form.";
+          chatBody.appendChild(botMsg);
+          chatBody.scrollTop = chatBody.scrollHeight;
+        }, 1000);
+      }
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === 'Enter') sendChatMessage();
+    }
+  </script>
+</body>
+</html>

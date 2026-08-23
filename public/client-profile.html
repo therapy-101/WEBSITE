@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Dashboard | IKIBLOOM Psychotherapy</title>
+  <meta name="description" content="IKIBLOOM Client Portal - Manage your psychotherapy sessions, track progress, and access resources with Aryan Khare.">
+  <style>
+    :root {
+      --bg-color: #FFFDD0;
+      --text-main: #5C4033;
+      --teal-accent: #2C5E58;
+      --purple-accent: #7A698D;
+      --card-bg: #FFFFFF;
+      --border-color: rgba(92, 64, 51, 0.2);
+      --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* Header Navigation */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 5%; background: rgba(255, 253, 208, 0.95);
+      position: sticky; top: 0; z-index: 90; backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+    .brand-container { display: flex; align-items: center; gap: 12px; }
+    .logo-img { height: 40px; width: auto; }
+    .brand-text { display: flex; flex-direction: column; }
+    .website-name { font-size: 1.3rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--teal-accent); line-height: 1; }
+    .tagline { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-main); font-weight: 600; margin-top: 3px; }
+
+    .user-nav-profile { display: flex; align-items: center; gap: 15px; }
+    .user-avatar-sm { width: 36px; height: 36px; border-radius: 50%; background: var(--teal-accent); color: var(--bg-color); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; }
+    .btn-logout { padding: 0.4rem 1rem; border: 1.5px solid var(--purple-accent); color: var(--purple-accent); border-radius: 6px; font-size: 0.85rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: var(--transition-smooth); }
+    .btn-logout:hover { background: var(--purple-accent); color: #FFFFFF; }
+
+    /* Main Container & Layout */
+    .dashboard-container { flex: 1; padding: 2.5rem 5%; max-width: 1300px; margin: 0 auto; width: 100%; }
+
+    /* Welcome Banner */
+    .welcome-card {
+      background: linear-gradient(135deg, var(--teal-accent), #1E423E);
+      color: #FFFDD0; border-radius: 12px; padding: 2rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08); margin-bottom: 2rem;
+    }
+    .welcome-text h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.3rem; }
+    .welcome-text p { opacity: 0.9; font-size: 0.95rem; }
+    .client-status-badge { background: rgba(255, 253, 208, 0.2); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px; border: 1px solid rgba(255, 253, 208, 0.3); }
+
+    /* Grid Layout */
+    .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
+
+    /* Section Cards */
+    .dash-card {
+      background: var(--card-bg); border-radius: 12px; padding: 1.8rem;
+      border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      margin-bottom: 1.8rem;
+    }
+    .dash-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; border-bottom: 1px solid rgba(92, 64, 51, 0.1); padding-bottom: 0.8rem; }
+    .dash-card-header h3 { color: var(--teal-accent); font-size: 1.2rem; font-weight: 700; }
+
+    /* Session Call Box */
+    .upcoming-session-box {
+      background: #F5F9F8; border-left: 4px solid var(--teal-accent);
+      padding: 1.2rem; border-radius: 0 8px 8px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .session-details p { font-size: 0.9rem; color: #444; }
+    .session-details strong { color: var(--teal-accent); font-size: 1.05rem; display: block; margin-bottom: 0.2rem; }
+    .btn-join-meet {
+      background: var(--teal-accent); color: var(--bg-color); padding: 0.75rem 1.4rem;
+      border-radius: 25px; text-decoration: none; font-weight: 700; font-size: 0.85rem;
+      display: inline-flex; align-items: center; gap: 8px; transition: var(--transition-smooth);
+    }
+    .btn-join-meet:hover { background: var(--purple-accent); transform: translateY(-2px); }
+
+    /* Homework Checklist */
+    .homework-list { list-style: none; }
+    .homework-item { display: flex; align-items: center; gap: 12px; padding: 0.8rem 0; border-bottom: 1px dashed rgba(92, 64, 51, 0.15); }
+    .homework-item:last-child { border-bottom: none; }
+    .homework-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--teal-accent); cursor: pointer; }
+    .homework-item label { font-size: 0.9rem; color: var(--text-main); cursor: pointer; }
+
+    /* History Table */
+    .history-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+    .history-table th, .history-table td { text-align: left; padding: 0.8rem; font-size: 0.88rem; border-bottom: 1px solid rgba(92, 64, 51, 0.1); }
+    .history-table th { color: var(--teal-accent); font-weight: 700; background: #FAF8E7; }
+    .status-completed { color: #27ae60; font-weight: bold; }
+
+    /* Profile Side Details */
+    .profile-info-group { margin-bottom: 1rem; }
+    .profile-info-group label { font-size: 0.75rem; text-transform: uppercase; color: var(--purple-accent); font-weight: 700; display: block; }
+    .profile-info-group p { font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
+
+    .file-upload-box {
+      border: 2px dashed var(--border-color); padding: 1.5rem; text-align: center;
+      border-radius: 8px; background: #FDFDFB; cursor: pointer; transition: var(--transition-smooth);
+    }
+    .file-upload-box:hover { border-color: var(--teal-accent); background: #FFFFFF; }
+
+    footer { padding: 2rem 5%; background: #F4EFCA; border-top: 1px solid var(--border-color); text-align: center; font-size: 0.8rem; margin-top: auto; }
+
+    @media (max-width: 850px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .welcome-card { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header>
+    <div class="brand-container">
+      <svg class="logo-img" viewBox="0 0 100 100" fill="none">
+        <path d="M50 85 C30 85 20 65 25 45 C35 55 45 65 50 85 Z" fill="#2C5E58" opacity="0.8"/>
+        <path d="M50 85 C70 85 80 65 75 45 C65 55 55 65 50 85 Z" fill="#2C5E58" opacity="0.8"/>
+        <path d="M50 85 C35 60 30 35 45 20 C50 35 52 55 50 85 Z" fill="#7A698D" opacity="0.8"/>
+        <path d="M50 85 C65 60 70 35 55 20 C50 35 48 55 50 85 Z" fill="#A88B9D" opacity="0.8"/>
+        <path d="M50 85 C50 50 40 30 50 10 C60 30 50 50 50 85 Z" fill="#6A9A8B" opacity="0.9"/>
+      </svg>
+      <div class="brand-text">
+        <div class="website-name">IKIBLOOM</div>
+        <div class="tagline">Client Portal</div>
+      </div>
+    </div>
+    
+    <div class="user-nav-profile">
+      <div class="user-avatar-sm" id="userInitials">SK</div>
+      <a href="index.html" class="btn-logout" onclick="handleSignOut()">Sign Out</a>
+    </div>
+  </header>
+
+  <!-- Dashboard Container -->
+  <div class="dashboard-container">
+    
+    <!-- Welcome Card Banner -->
+    <div class="welcome-card">
+      <div class="welcome-text">
+        <h1 id="clientWelcomeName">Welcome, Sameer Kapoor</h1>
+        <p>Therapist: <strong>Aryan Khare (Lead Clinical Psychotherapist)</strong></p>
+      </div>
+      <span class="client-status-badge">ACTIVE PLAN: HYBRID CARE</span>
+    </div>
+
+    <div class="dashboard-grid">
+      
+      <!-- Main Left Column -->
+      <div class="main-content">
+        
+        <!-- Upcoming Session Card -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3>Upcoming Therapy Session</h3>
+            <span style="font-size:0.8rem; font-weight:bold; color:var(--purple-accent);">Session 4 of 8</span>
+          </div>
+          <div class="upcoming-session-box">
+            <div class="session-details">
+              <strong>Cognitive Restructuring & Behavioral Review</strong>
+              <p>📅 Thursday, Aug 27, 2026 | ⌚ 05:00 PM - 06:00 PM IST</p>
+              <p>📍 Mode: Google Meet Encrypted Consultation</p>
+            </div>
+            <a href="https://meet.google.com/new" target="_blank" class="btn-join-meet">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+              </svg>
+              Join Google Meet
+            </a>
+          </div>
+        </div>
+
+        <!-- Behavioral Homework & Tasks -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3>Therapeutic Homework & Exercises</h3>
+            <span style="font-size:0.8rem; color:#666;">Assigned by Aryan Khare</span>
+          </div>
+          <ul class="homework-list">
+            <li class="homework-item">
+              <input type="checkbox" id="hw1" checked>
+              <label for="hw1">Complete daily Thought Record Log for automatic anxiety thoughts.</label>
+            </li>
+            <li class="homework-item">
+              <input type="checkbox" id="hw2">
+              <label for="hw2">Practice 10-minute Box Breathing exercise twice daily before work.</label>
+            </li>
+            <li class="homework-item">
+              <input type="checkbox" id="hw3">
+              <label for="hw3">Review behavioral exposure hierarchy chart for situational triggers.</label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Session History Table -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3>Past Session History</h3>
+          </div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Focus Topic</th>
+                <th>Type</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Aug 20, 2026</td>
+                <td>Identifying Cognitive Distortions</td>
+                <td>Online Call</td>
+                <td class="status-completed">Completed</td>
+              </tr>
+              <tr>
+                <td>Aug 13, 2026</td>
+                <td>Initial Intake & Assessment</td>
+                <td>In-Clinic</td>
+                <td class="status-completed">Completed</td>
+              </tr>
+              <tr>
+                <td>Aug 06, 2026</td>
+                <td>15-Min Introductory Orientation</td>
+                <td>Google Meet</td>
+                <td class="status-completed">Completed</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Right Side Column -->
+      <div class="side-content">
+        
+        <!-- Profile & Account Details -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3>Client Profile Information</h3>
+          </div>
+          <div class="profile-info-group">
+            <label>Full Name</label>
+            <p>Sameer Kapoor</p>
+          </div>
+          <div class="profile-info-group">
+            <label>Registered Email</label>
+            <p>sameer.k@example.com</p>
+          </div>
+          <div class="profile-info-group">
+            <label>Contact Number</label>
+            <p>+91 98765 43210</p>
+          </div>
+          <div class="profile-info-group">
+            <label>Location</label>
+            <p>Lucknow, Uttar Pradesh</p>
+          </div>
+        </div>
+
+        <!-- Secure Document Shared Uploads -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3>Shared Assessment Files</h3>
+          </div>
+          <p style="font-size:0.85rem; color:#666; margin-bottom:1rem;">Upload psychometric worksheets or relevant diagnostic documents securely for your practitioner.</p>
+          <div class="file-upload-box" onclick="document.getElementById('fileInput').click()">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--teal-accent)" style="margin-bottom:0.5rem;"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
+            <p style="font-size:0.85rem; font-weight:bold; color:var(--teal-accent);">Click to upload documents</p>
+            <p style="font-size:0.75rem; color:#888;">PDF, PNG, JPG (Max 10MB)</p>
+            <input type="file" id="fileInput" style="display:none;" onchange="handleFileUpload(event)">
+          </div>
+          <div id="fileUploadStatus" style="font-size:0.8rem; color:#27ae60; margin-top:0.5rem; text-align:center;"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2026 IKIBLOOM Psychotherapy & Counselling. All Client Data Encrypted & Confidential.
+  </footer>
+
+  <script>
+    /* Sign Out Handler */
+    function handleSignOut() {
+      alert("You have been logged out of your IKIBLOOM client portal.");
+    }
+
+    /* File Upload Handler */
+    function handleFileUpload(e) {
+      const file = e.target.files[0];
+      if (file) {
+        document.getElementById('fileUploadStatus').textContent = `Uploaded: ${file.name} (Shared securely with therapist)`;
+      }
+    }
+  </script>
+</body>
+</html>
